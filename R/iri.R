@@ -12,6 +12,16 @@
 #' iri <- CalculateIRI(profile, 10)
 #' @export
 CalculateIRI <- function(profile, sample.interval, segment.length = 100) {
-  #
-  return(profile)
+  # initialize costants
+
+  # initialize variables
+
+  # loop trough profile and calculate roughness
+
+  # compute slope input
+
+  # simulate vehicle response
+
+  # retrun iri series
+  return(null)
 }
