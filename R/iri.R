@@ -4,8 +4,10 @@
 #'
 #' @param profile Road profile (as numeric vector) whose IRI is to be calculated.
 #' @param sample.interval Distance (in mm) between two samples of the given profile.
-#' @param segment.length: Distance (in m) for which the IRI is to be calculated. Default is 100 m.
+#' @param segment.length Distance (in m) for which the IRI is to be calculated. Default is 100 m.
+#'
 #' @return Calculated IRI (as numeric vector) of the given profile.
+#'
 #' @examples
 #' iri <- CalculateIRI(profile, 10)
 #' @export
