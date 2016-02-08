@@ -4,22 +4,22 @@
 \alias{CalculateIRI}
 \title{Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile}
 \usage{
-CalculateIRI(profile, sample.interval, segment.length = 100)
+CalculateIRI(profile, iri_coef, segment.length = 100)
 }
 \arguments{
-\item{profile}{Road profile (as numeric vector) whose IRI is to be calculated.}
+\item{profile}{Road profile (as numeric vector in mm) whose IRI is to be calculated.}
 
-\item{sample.interval}{Distance (in mm) between two samples of the given profile.}
+\item{iri_coef}{Set of coefficients for specific sample size (e. g. IRI_COEF_100).}
 
 \item{segment.length}{Distance (in m) for which the IRI is to be calculated. Default is 100 m.}
 }
 \value{
-Calculated IRI (as numeric vector) of the given profile.
+Calculated IRI per segment (as numeric) of the given profile.
 }
 \description{
 Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile
 }
 \examples{
-iri <- CalculateIRI(profile, 10)
+iri <- CalculateIRI(profile, 0.1)
 }
 
