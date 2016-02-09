@@ -28,8 +28,6 @@ CalculateIRI <- function(profile, iri_coef, segment.length = 100) {
 
   # loop trough segments and calculate avg iri per segment
   for (profile_segment in profile_segments) {
-    # initialize variables
-
     # sliding window of profil elevations for calculating mvg avg slope (buffer of length K)
     y <- rep(0, 26)
     y[K] <- profile[K]  # elevation 11 m from start
@@ -47,12 +45,19 @@ CalculateIRI <- function(profile, iri_coef, segment.length = 100) {
     ix <- 1  # index within sliding window
 
     # calculate avg IRI per segment; loop through profile points in segment
-    for (i in seq_along(profile_segment)) {
-      # filling window; loop trough slope calculation window
-      if (length(profile_segment) >= ix) { # added conditon for not reading out of segment
-        y[K] <- profile_segment[ix]
-      }
+    for (i in 1:num_samples_per_segment) {
 
+      # filling window; loop trough slope calculation window
+      next_segm_id <- length(iri) + 2
+
+      if (length(profile_segment) >= ix) { # if slope could be built within semgent
+        y[K] <- profile_segment[ix]
+      } else if (length(profile_segments) >= next_segm_id && TRUE) { # if slope needs to be built with samples of next segment and there is a following segment
+        next_segm_id <- length(iri) + 2
+        y[K] <- profile_segments[[next_segm_id]][ix-num_samples_per_segment]
+      } else { # if slope needs to be built with samples of next segment but there is no next segment or no following sample
+        # y[K] keeps value from former sample
+      }
       ix <- ix + 1
       while (ix < K) {
         y[ix] <- y[K]
