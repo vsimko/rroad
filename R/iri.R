@@ -105,9 +105,10 @@ CalculateIRI <- function(profile, iri_coef, segment.length = 100) {
 
 #' Computes the IRI for a continuously increasing segment given a road profile
 #'
-#' Depending on the sample size a setrain buffer has to be attached to the profile
+#' Depending on the sample size a certain buffer has to be attached to the profile
+#' for calculation the slope at the end.
 #' @param profile Road profile (as numeric vector in mm) whose IRIs are to be calculated.
-#' @param iri_coef Set of coefficients for specific sample size (e. g. IRI_COEF_100).
+#' @param iri_coef Set of coefficients for specific sample size (e. g. IRI_COEF_250).
 #' @return Calculated IRIs (m/km) for increasing segments (as numeric vector) of the given profile.
 #' @examples
 #' generate_test_profile <- function (x) {
@@ -117,7 +118,7 @@ CalculateIRI <- function(profile, iri_coef, segment.length = 100) {
 #' if (x >= 5) return(0)
 #' }
 #' x <- seq(.25, 30, by = .25)
-#' test_profile <- data.frame(x=x, profile=sapply(x, generate_test_profile))
+#' test_profile <- data.frame(x = x, profile=sapply(x, generate_test_profile))
 #' test_profile$iri <- CalculateIRIContinuously(test_profile$profile, IRI_COEF_250)
 #' plot(x = test_profile$x, y = test_profile$profile, ylim = c(0, 8), xlim = c(0,25), type = "l")
 #' lines(x = test_profile$x, y = test_profile$iri*10)
