@@ -24,12 +24,14 @@ Examples
 ``` r
 profile <- rnorm(10000)
 iri <- CalculateIRI(profile, IRI_COEF_100, 20)
+#> [1] "out of semgents"
+#> [1] "out of semgents"
 par(mfrow = c(1,2)) # space for two diagrams
 plot(profile, type="l",
-  xlab="Distance [cm]", ylab="Profile [m]",
+  xlab="Distance [dm]", ylab="Profile [mm]",
   main="Read profile (Laser measurement)")
 plot(iri, type="s",
-  xlab="Segment", ylab="IRI [?]",
+  xlab="Segment", ylab="IRI [m/km]",
   main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
 ```
 

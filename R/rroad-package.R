@@ -15,12 +15,16 @@
     pr = c(3.793992E-04, .2490886, 4.123478E-02, 17.65532)
   ), assign.env = as.environment("package:rroad"))
 
-#   # lazily evaluated promise (precomputed coeficients 250mm segments)
-#   delayedAssign("IRI_COEF_250", list(
-#     dx = 0.25,
-#     st = matrix(nrow = 4, ncol = 4),  # TODO
-#     pr = c(0.005476107, 1.388776, 0.2275968, 35.79262)
-#   ), assign.env = as.environment("package:rroad"))
+  # lazily evaluated promise (precomputed coeficients 250mm segments)
+  delayedAssign("IRI_COEF_250", list(
+    dx = 0.25,
+    st = matrix(nrow = 4, ncol = 4, byrow = TRUE,
+                c(.9966071, 1.091514E-02, -2.083274E-03, 3.190145E-04,
+                  -.5563044, .9438768, -.8324718, 5.064701E-02,
+                  2.153176E-02, 2.126763E-03, .7508714, 8.221888E-03,
+                  3.335013, .3376467, -39.12762, .4347564)),
+    pr = c(5.476107E-03, 1.388776, .2275968, 35.79262)
+  ), assign.env = as.environment("package:rroad"))
 
 }
 
