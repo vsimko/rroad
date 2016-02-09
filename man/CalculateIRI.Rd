@@ -20,6 +20,14 @@ Calculated IRI per segment (as numeric) of the given profile.
 Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile
 }
 \examples{
-iri <- CalculateIRI(profile, 0.1)
+profile <- rnorm(10000)
+iri <- CalculateIRI(profile, IRI_COEF_100, 20)
+par(mfrow = c(1,2))
+plot(profile, type="l",
+   xlab="Distance [cm]", ylab="Profile [m]",
+   main="Read profile (Laser measurement)")
+plot(iri, type="s",
+   xlab="Segment", ylab="IRI [?]",
+   main="International Roughness Index (IRI)\\nsample = 10cm, segment = 20m")
 }
 
