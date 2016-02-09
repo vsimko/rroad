@@ -7,7 +7,15 @@
 #' @param segment.length Distance (in m) for which the IRI is to be calculated. Default is 100 m.
 #' @return Calculated IRI per segment (as numeric) of the given profile.
 #' @examples
-#' iri <- CalculateIRI(profile, 0.1)
+#' profile <- rnorm(10000)
+#' iri <- CalculateIRI(profile, IRI_COEF_100, 20)
+#' par(mfrow = c(1,2))
+#' plot(profile, type="l",
+#'    xlab="Distance [cm]", ylab="Profile [m]",
+#'    main="Read profile (Laser measurement)")
+#' plot(iri, type="s",
+#'    xlab="Segment", ylab="IRI [?]",
+#'    main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
 #' @export
 CalculateIRI <- function(profile, iri_coef, segment.length = 100) {
   # initialize costants
@@ -21,7 +29,7 @@ CalculateIRI <- function(profile, iri_coef, segment.length = 100) {
   num_samples_per_segment <- segment.length / DX
 
   # num_segments <- length(profile) / num_samples_per_segment
-  profile_segments <- split(profile, ceiling(seq_along(profile)/num_samples_per_segment))
+  profile_segments <- split(profile, ceiling(seq_along(profile) / num_samples_per_segment))
 
   # vector for collecting return value
   iri <- numeric()
