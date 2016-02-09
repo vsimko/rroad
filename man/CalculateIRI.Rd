@@ -14,7 +14,7 @@ CalculateIRI(profile, iri_coef, segment.length = 100)
 \item{segment.length}{Distance (in m) for which the IRI is to be calculated. Default is 100 m.}
 }
 \value{
-Calculated IRI per segment (as numeric) of the given profile.
+Calculated IRI (m/km) per segment (as numeric) of the given profile.
 }
 \description{
 Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile
@@ -24,10 +24,10 @@ profile <- rnorm(10000)
 iri <- CalculateIRI(profile, IRI_COEF_100, 20)
 par(mfrow = c(1,2))
 plot(profile, type="l",
-   xlab="Distance [cm]", ylab="Profile [m]",
+   xlab="Distance [dm]", ylab="Profile [m]",
    main="Read profile (Laser measurement)")
 plot(iri, type="s",
-   xlab="Segment", ylab="IRI [?]",
+   xlab="Segment", ylab="IRI [m/km]",
    main="International Roughness Index (IRI)\\nsample = 10cm, segment = 20m")
 }
 
