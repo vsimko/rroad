@@ -11,9 +11,10 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "inst/webimg/README-"
 )
+set.seed(1)
 ```
 
-# biwavelet R package
+# rroad R package
 Set of tools for monitoring road condition
 
 - International Roughness Index (IRI) computation

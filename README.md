@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-biwavelet R package
-===================
+rroad R package
+===============
 
 Set of tools for monitoring road condition
 
@@ -24,8 +24,6 @@ Examples
 ``` r
 profile <- rnorm(10000)
 iri <- CalculateIRI(profile, IRI_COEF_100, 20)
-#> [1] "out of semgents"
-#> [1] "out of semgents"
 par(mfrow = c(1,2)) # space for two diagrams
 plot(profile, type="l",
   xlab="Distance [dm]", ylab="Profile [mm]",
