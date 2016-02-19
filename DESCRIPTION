@@ -1,8 +1,8 @@
 Package: rroad
 Type: Package
 Title: Set of tools for monitoring road condition
-Version: 0.0.1
-Date: 2016-02-05
+Version: 0.0.2
+Date: 2016-02-12
 Author: Viliam Simko, Kevin Laubis
 Maintainer: Viliam Simko <viliam.simko@gmail.com>
 Description: Set of tools for monitoring road condition, currently work in progress.
