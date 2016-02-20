@@ -9,6 +9,7 @@ Description: Set of tools for monitoring road condition, currently work in progr
 License: MIT + file LICENSE
 URL: http://github.com/vsimko/rroad
 LazyData: yes
+Depends: zoo, biwavelet, dplyr, seewave
 Suggests:
     testthat
 RoxygenNote: 5.0.1
