@@ -1,0 +1,110 @@
+---
+title: "Road profile features"
+author: "Viliam Simko"
+date: "February 20, 2016"
+output: html_document
+---
+
+```{r Setup, include=FALSE}
+library(dplyr)
+library(zoo)
+```
+
+
+First, some some assumptions about the road and and our car:
+```{r}
+road_len_m <- 1000          # road length
+speed_kmh <- 80             # car speed in km/h
+sample_rate_hz <- 200       # sampling rate of a 3D accelerometer
+speed_ms <- speed_kmh / 3.6 # car speed in m/s
+sample_len <- round(speed_ms / sample_rate_hz, digits = 2) # sample size
+num_samples <- round(road_len_m / sample_len) # how many samples we collected
+
+print(sample_len)
+print(num_samples)
+```
+
+First, we generate some random data. This can be later replaced by real dataset
+obrained from a 3D accelerometer. We need to trim NA valued from the signal,
+because the interpolation wouldn't work.
+
+```{r cache=TRUE}
+signal <- data.frame(
+  sampleid = seq_len(num_samples),
+  dist_meters = seq(from = 0, to = road_len_m, by = sample_len),
+  accZ = rnorm(num_samples) * # random signal
+      sapply(rnorm(num_samples), function(x){ifelse(x > 1.8, 1, NA)}) # random gaps
+)
+signal <- na.trim(signal)
+
+plot(signal$dist_meters, signal$accZ, type = "h",
+     main = "Some signal",
+     xlab = "Distance traveled [m]",
+     ylab = expression( paste("Z-acceleration [", m * s ^ -2, "]") ))
+```
+
+Now, we look at the gaps closely:
+```{r}
+signal %>% head(500) -> signal_head
+plot(signal_head$dist_meters, signal_head$accZ,
+     type = "h", xlab = NA, ylab = NA,
+     main = paste("First", nrow(signal_head), "samples with gaps"))
+```
+
+We need to interpolate the values between the gaps:
+```{r}
+signal$accZ %>% na.approx(na.rm = FALSE) -> signal$accZ_approx
+```
+
+```{r echo=FALSE}
+signal %>% head(500) -> signal_head
+
+plot(signal_head$dist_meters, signal_head$accZ,
+     type = "p", pch = "+", xlab = NA, ylab = NA,
+     main = paste("First", nrow(signal_head), "samples interpolated"))
+
+points(signal_head$dist_meters, signal_head$accZ_approx,
+       col = "red", pch = ".", xlab = NA, ylab = NA)
+```
+
+We can also analyze frequency content of the signal by using **Continuous Wavelet Transform (CWT)**. The following plot is called "scaleogram".
+```{r cache=TRUE}
+library(biwavelet)
+w <- wt(cbind(signal$sampleid, signal$accZ_approx), dj = 1/4)
+plot(w)
+```
+
+We can extract the CWT coeficients representing certaing frequency bands.
+The `power.corr` matrix represents bias-correction version.
+```{r}
+nscales <- nrow(w$power.corr)
+signal$cwt_mid  <- w$power.corr[floor(.5 * nscales),]
+signal$cwt_high <- w$power.corr[floor(.1 * nscales),]
+signal$cwt_low  <- w$power.corr[floor(.9 * nscales),]
+
+plot(signal$cwt_mid, type = "l")
+lines(signal$cwt_high, col = "blue", lw = 2)
+lines(signal$cwt_low, col = "red", lw = 2)
+```
+
+Here, we compute moving average and root mean squared value:
+
+```{r}
+signal$accZ_approx %>% rollmean(k = 9, fill = 0) -> signal$rollmean9
+signal$accZ_approx %>% rollmean(k = 19, fill = 0) -> signal$rollmean19
+
+library(seewave)
+signal$accZ_approx %>% rollapply(width = 20, fill = 0, FUN = rms) -> signal$rms20
+```
+
+```{r}
+signal %>% head(2000) -> signal_head
+
+plot(signal_head$dist_meters, signal_head$accZ_approx,
+     type = "l", xlab = NA, ylab = NA,
+     main = paste("First", nrow(signal_head), "samples interpolated"))
+
+lines(signal_head$rollmean9, col = "red")
+lines(signal_head$rollmean19, col = "blue")
+lines(signal_head$rms20, col = "green")
+```
