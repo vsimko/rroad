@@ -3,4 +3,3 @@
 .RData
 inst/kla
 inst/*_cache
-inst/*_files
