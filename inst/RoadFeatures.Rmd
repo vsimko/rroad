@@ -2,7 +2,9 @@
 title: "Road profile features"
 author: "Viliam Simko"
 date: "February 20, 2016"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r Setup, include=FALSE}
