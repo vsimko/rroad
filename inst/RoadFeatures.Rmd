@@ -33,10 +33,13 @@ because the interpolation wouldn't work.
 ```{r cache=TRUE}
 signal <- data.frame(
   sampleid = seq_len(num_samples),
-  dist_meters = seq(from = 0, to = road_len_m, by = sample_len),
-  accZ = rnorm(num_samples) * # random signal
-      sapply(rnorm(num_samples), function(x){ifelse(x > 1.8, 1, NA)}) # random gaps
+  dist_meters = seq(from = 0, to = road_len_m, by = sample_len)
+#  accZ = rnorm(num_samples) * # random signal
+#      sapply(rnorm(num_samples), function(x){ifelse(x > 1.8, 1, NA)}) # random gaps
 )
+load("../inst/example_data/2016_01_16_drive_k3535_acc_z.rda")
+drive_k3535_acc_z$acc_z %>% head(num_samples) %>% scale -> signal$accZ
+
 signal <- na.trim(signal)
 
 plot(signal$dist_meters, signal$accZ, type = "h",
