@@ -1,7 +1,7 @@
 # Road profile features
 Viliam Simko  
 February 20, 2016  
-
+<!-- This file is generated from RoadFeatures.Rmd. Please edit that file -->
 
 
 First, some some assumptions about the road and and our car:
