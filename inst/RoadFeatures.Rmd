@@ -104,7 +104,7 @@ plot(signal_head$dist_meters, signal_head$accZ_approx,
      type = "l", xlab = NA, ylab = NA,
      main = paste("First", nrow(signal_head), "samples interpolated"))
 
-lines(signal_head$rollmean9, col = "red")
-lines(signal_head$rollmean19, col = "blue")
-lines(signal_head$rms20, col = "green")
+lines(signal_head$dist_meters, signal_head$rollmean10, col = "red", lw = 3)
+lines(signal_head$dist_meters, signal_head$rollmean20, col = "blue", lw = 3)
+lines(signal_head$dist_meters, signal_head$rms20, col = "green", lw = 3)
 ```
