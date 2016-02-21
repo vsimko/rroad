@@ -29,9 +29,8 @@ print(num_samples)
 ## [1] 9091
 ```
 
-First, we generate some random data. This can be later replaced by real dataset
-obrained from a 3D accelerometer. We need to trim NA valued from the signal,
-because the interpolation wouldn't work.
+First, we use some sample data obrained from a 3D-accelerometer.
+We need to trim NA valued from the signal, because there might be gaps (NA values) and the interpolation doesn't work with NAs.
 
 
 ```r

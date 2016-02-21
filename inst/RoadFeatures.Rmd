@@ -25,9 +25,8 @@ print(sample_len)
 print(num_samples)
 ```
 
-First, we generate some random data. This can be later replaced by real dataset
-obrained from a 3D accelerometer. We need to trim NA valued from the signal,
-because the interpolation wouldn't work.
+First, we use some sample data obrained from a 3D-accelerometer.
+We need to trim NA valued from the signal, because there might be gaps (NA values) and the interpolation doesn't work with NAs.
 
 ```{r cache=TRUE}
 signal <- data.frame(
@@ -91,11 +90,11 @@ lines(signal$cwt_low, col = "red", lw = 4)
 Here, we compute moving average and root mean squared value:
 
 ```{r}
-signal$accZ_approx %>% rollmean(k = 9, fill = 0) -> signal$rollmean9
-signal$accZ_approx %>% rollmean(k = 19, fill = 0) -> signal$rollmean19
+signal$accZ_approx %>% rollmean(k = 10, fill = NA) -> signal$rollmean10
+signal$accZ_approx %>% rollmean(k = 20, fill = NA) -> signal$rollmean20
 
 library(seewave)
-signal$accZ_approx %>% rollapply(width = 20, fill = 0, FUN = rms) -> signal$rms20
+signal$accZ_approx %>% rollapply(width = 20, fill = NA, FUN = rms) -> signal$rms20
 ```
 
 ```{r}
