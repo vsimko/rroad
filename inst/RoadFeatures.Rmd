@@ -12,7 +12,6 @@ library(dplyr)
 library(zoo)
 ```
 
-
 First, some some assumptions about the road and and our car:
 ```{r}
 road_len_m <- 1000          # road length
@@ -42,7 +41,7 @@ drive_k3535_acc_z$acc_z %>% head(num_samples) %>% scale -> signal$accZ
 
 signal <- na.trim(signal)
 
-plot(signal$dist_meters, signal$accZ, type = "h",
+plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
      main = "Some signal",
      xlab = "Distance traveled [m]",
      ylab = expression( paste("Z-acceleration [", m * s ^ -2, "]") ))
@@ -52,30 +51,27 @@ Now, we look at the gaps closely:
 ```{r}
 signal %>% head(500) -> signal_head
 plot(signal_head$dist_meters, signal_head$accZ,
-     type = "h", xlab = NA, ylab = NA,
+     type = "o", xlab = NA, ylab = NA, pch = "+", cex = .5,
      main = paste("First", nrow(signal_head), "samples with gaps"))
 ```
 
 We need to interpolate the values between the gaps:
 ```{r}
 signal$accZ %>% na.approx(na.rm = FALSE) -> signal$accZ_approx
-```
 
-```{r echo=FALSE}
 signal %>% head(500) -> signal_head
-
 plot(signal_head$dist_meters, signal_head$accZ,
-     type = "p", pch = "+", xlab = NA, ylab = NA,
+     type = "p", pch = "+", cex = .5, xlab = NA, ylab = NA,
      main = paste("First", nrow(signal_head), "samples interpolated"))
 
-points(signal_head$dist_meters, signal_head$accZ_approx,
+lines(signal_head$dist_meters, signal_head$accZ_approx,
        col = "red", pch = ".", xlab = NA, ylab = NA)
 ```
 
 We can also analyze frequency content of the signal by using **Continuous Wavelet Transform (CWT)**. The following plot is called "scaleogram".
 ```{r cache=TRUE}
 library(biwavelet)
-w <- wt(cbind(signal$sampleid, signal$accZ_approx), dj = 1/4)
+w <- wt(cbind(signal$sampleid, signal$accZ_approx), dj = 1/2)
 plot(w)
 ```
 
@@ -84,12 +80,12 @@ The `power.corr` matrix represents bias-correction version.
 ```{r}
 nscales <- nrow(w$power.corr)
 signal$cwt_mid  <- w$power.corr[floor(.5 * nscales),]
-signal$cwt_high <- w$power.corr[floor(.1 * nscales),]
-signal$cwt_low  <- w$power.corr[floor(.9 * nscales),]
+signal$cwt_high <- w$power.corr[floor(.2 * nscales),]
+signal$cwt_low  <- w$power.corr[floor(.8 * nscales),]
 
-plot(signal$cwt_mid, type = "l")
-lines(signal$cwt_high, col = "blue", lw = 2)
-lines(signal$cwt_low, col = "red", lw = 2)
+plot(signal$cwt_high, type = "l")
+lines(signal$cwt_mid, col = "blue", lw = 4)
+lines(signal$cwt_low, col = "red", lw = 4)
 ```
 
 Here, we compute moving average and root mean squared value:
@@ -103,9 +99,10 @@ signal$accZ_approx %>% rollapply(width = 20, fill = 0, FUN = rms) -> signal$rms2
 ```
 
 ```{r}
-signal %>% head(2000) -> signal_head
+signal %>% head(3000) -> signal_head
 
-plot(signal_head$dist_meters, signal_head$accZ_approx,
+plot(signal_head$dist_meters,
+     signal_head$accZ_approx,
      type = "l", xlab = NA, ylab = NA,
      main = paste("First", nrow(signal_head), "samples interpolated"))
 
