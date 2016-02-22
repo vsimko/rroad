@@ -36,12 +36,21 @@ signal <- data.frame(
 #      sapply(rnorm(num_samples), function(x){ifelse(x > 1.8, 1, NA)}) # random gaps
 )
 load("../inst/example_data/2016_01_16_drive_k3535_acc_z.rda")
-drive_k3535_acc_z$acc_z %>% head(num_samples) %>% scale -> signal$accZ
-
-signal <- na.trim(signal)
+drive_k3535_acc_z$acc_z %>% head(num_samples) -> signal$accZ_orig
 
 plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
-     main = "Some signal",
+     main = "Accelerometer signal (original)",
+     xlab = "Distance traveled [m]",
+     ylab = expression( paste("Z-acceleration [", m * s ^ -2, "]") ))
+
+# z-score normalization (subtracting mean and dividing by sd)
+signal$accZ_orig %>% scale -> signal$accZ
+
+# removing leading and trailing NAs in the whole matrix
+signal %>% na.trim -> signal
+
+plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
+     main = "Accelerometer signal (z-score normalized)",
      xlab = "Distance traveled [m]",
      ylab = expression( paste("Z-acceleration [", m * s ^ -2, "]") ))
 ```
