@@ -13,6 +13,7 @@ sample_rate_hz <- 200       # sampling rate of a 3D accelerometer
 speed_ms <- speed_kmh / 3.6 # car speed in m/s
 sample_len <- round(speed_ms / sample_rate_hz, digits = 2) # sample size
 num_samples <- round(road_len_m / sample_len) # how many samples we collected
+GRAVITY_ACCEL <- 9.80665 # ms^-2
 
 print(sample_len)
 ```
@@ -40,7 +41,7 @@ signal <- data.frame(
 #  accZ = rnorm(num_samples) * # random signal
 #      sapply(rnorm(num_samples), function(x){ifelse(x > 1.8, 1, NA)}) # random gaps
 )
-load("../inst/example_data/2016_01_16_drive_k3535_acc_z.rda")
+load("../data/2016_01_16_drive_k3535_acc_z.rda")
 drive_k3535_acc_z$acc_z %>% head(num_samples) -> signal$accZ_orig
 
 plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
@@ -52,6 +53,9 @@ plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
 ![](RoadFeatures_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 ```r
+# signal without the standard gravity acceleration
+(signal$accZ_orig - GRAVITY_ACCEL) -> signal$accZ_nogravity
+
 # z-score normalization (subtracting mean and dividing by sd)
 signal$accZ_orig %>% scale -> signal$accZ
 
