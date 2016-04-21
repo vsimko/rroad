@@ -3,8 +3,8 @@ title: "Road profile features"
 author: "Viliam Simko"
 date: "February 20, 2016"
 output: 
-  html_document: 
-    keep_md: yes
+  html_document:
+    fig_caption: yes
 ---
 <!-- This file is generated from RoadFeatures.Rmd. Please edit that file -->
 ```{r Setup, include=FALSE}
@@ -26,8 +26,9 @@ print(sample_len)
 print(num_samples)
 ```
 
-First, we use some sample data obrained from a 3D-accelerometer.
-We need to trim NA valued from the signal, because there might be gaps (NA values) and the interpolation doesn't work with NAs.
+First, we use some sample data obrained from a 3D-accelerometer. We need to trim
+NA valued from the signal, because there might be gaps (NA values) and the
+interpolation doesn't work with NAs.
 
 ```{r cache=TRUE}
 signal <- data.frame(
@@ -80,7 +81,9 @@ lines(signal_head$dist_meters, signal_head$accZ_approx,
        col = "red", pch = ".", xlab = NA, ylab = NA)
 ```
 
-We can also analyze frequency content of the signal by using **Continuous Wavelet Transform (CWT)**. The following plot is called "scaleogram".
+We can also analyze frequency content of the signal by using **Continuous 
+Wavelet Transform (CWT)**. The following plot is called "scaleogram".
+
 ```{r cache=TRUE}
 library(biwavelet)
 w <- wt(cbind(signal$sampleid, signal$accZ_approx), dj = 1/2)
