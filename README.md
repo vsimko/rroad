@@ -33,7 +33,7 @@ plot(iri, type="s",
   main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
 ```
 
-![](inst/webimg/README-iri_from_random_profile-1.png)<!-- -->
+![](vignettes/README-iri_from_random_profile-1.png)
 
 References
 ----------
