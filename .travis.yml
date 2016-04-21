@@ -24,9 +24,9 @@ addons:
     - libsndfile1-dev
     - libfftw3-dev
 
-r_github_packages:
-  - jimhester/covr
-  - jimhester/lintr
+r_binary_packages:
+  - covr
+  - lintr
 
 after_success:
   - Rscript -e 'library(covr);codecov()'
