@@ -22,6 +22,7 @@ addons:
   apt:
     packages:
     - libsndfile1-dev
+    - libfftw3-dev
 
 r_github_packages:
   - jimhester/covr
