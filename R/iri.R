@@ -1,5 +1,30 @@
 # This file provides a function for calculation the international roughness index (IRI) given a road profile.
 
+#' Computes the IRI for fixed length overlapping segments (e.g. 100 m segments) with an offset (e.g. 20 m) given a road profile
+#'
+#' @param profile Road profile (as numeric vector in mm) whose IRI is to be calculated.
+#' @param iri_coef Set of coefficients for specific sample size (e. g. IRI_COEF_100).
+#' @param segment.length Distance (in m) for which the IRI is to be calculated. Default is 100 m.
+#' @param segment.offset Offset (in m) for which the segments will not overlap. Default is 20 m.
+#' @return Calculated IRI (m/km) per segment (as numeric) of the given profile.
+#' @examples
+#' profile <- rnorm(10000)
+#' iri <- CalculateIRIperSegments(profile, IRI_COEF_100, 20)
+#' par(mfrow = c(1,2))
+#' plot(profile, type="l",
+#'    xlab="Distance [dm]", ylab="Profile [m]",
+#'    main="Read profile (Laser measurement)")
+#' plot(iri, type="s",
+#'    xlab="Segment (with 20 m offset)", ylab="IRI [m/km]",
+#'    main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
+#' @export
+CalculateIRIperSegmentsOverlapping <- function(profile, iri_coef, segment.length = 100, segment.offset = 20) {
+
+    # return iri vector
+  return(NULL)
+}
+
+
 #' Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile
 #'
 #' @param profile Road profile (as numeric vector in mm) whose IRI is to be calculated.
