@@ -1,30 +1,5 @@
 # This file provides a function for calculation the international roughness index (IRI) given a road profile.
 
-#' Computes the IRI for fixed length overlapping segments (e.g. 100 m segments) with an offset (e.g. 20 m) given a road profile
-#'
-#' @param profile Road profile (as numeric vector in mm) whose IRI is to be calculated.
-#' @param iri_coef Set of coefficients for specific sample size (e. g. IRI_COEF_100).
-#' @param segment.length Distance (in m) for which the IRI is to be calculated. Default is 100 m.
-#' @param segment.offset Offset (in m) for which the segments will not overlap. Default is 20 m.
-#' @return Calculated IRI (m/km) per segment (as numeric) of the given profile.
-#' @examples
-#' profile <- rnorm(10000)
-#' iri <- CalculateIRIperSegments(profile, IRI_COEF_100, 20)
-#' par(mfrow = c(1,2))
-#' plot(profile, type="l",
-#'    xlab="Distance [dm]", ylab="Profile [m]",
-#'    main="Read profile (Laser measurement)")
-#' plot(iri, type="s",
-#'    xlab="Segment (with 20 m offset)", ylab="IRI [m/km]",
-#'    main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
-#' @export
-CalculateIRIperSegmentsOverlapping <- function(profile, iri_coef, segment.length = 100, segment.offset = 20) {
-
-    # return iri vector
-  return(NULL)
-}
-
-
 #' Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile
 #'
 #' @param profile Road profile (as numeric vector in mm) whose IRI is to be calculated.
@@ -43,17 +18,46 @@ CalculateIRIperSegmentsOverlapping <- function(profile, iri_coef, segment.length
 #'    main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
 #' @export
 CalculateIRIperSegments <- function(profile, iri_coef, segment.length = 100) {
+  # CalculateIRIperSegmentsOverlapping() with segment.offset = segment.length
+  CalculateIRIperSegmentsOverlapping(profile, iri_coef, segment.length, segment.length)
+}
+
+
+#' Computes the IRI for fixed length overlapping segments (e.g. 100 m segments) with an
+#' offset (e.g. 20 m) given a road profile
+#'
+#' @param profile Road profile (as numeric vector in mm) whose IRI is to be calculated.
+#' @param iri_coef Set of coefficients for specific sample size (e. g. IRI_COEF_100).
+#' @param segment.length Distance (in m) for which the IRI is to be calculated. Default is 100 m.
+#' @param segment.offset Offset (in m) for which the segments will not overlap. Default is 20 m.
+#' @return Calculated IRI (m/km) per segment (as numeric) of the given profile.
+#' @examples
+#' profile <- rnorm(10000)
+#' iri <- CalculateIRIperSegments(profile, IRI_COEF_100, 20)
+#' par(mfrow = c(1,2))
+#' plot(profile, type="l",
+#'    xlab="Distance [dm]", ylab="Profile [m]",
+#'    main="Read profile (Laser measurement)")
+#' plot(iri, type="s",
+#'    xlab="Segment (with 20 m offset)", ylab="IRI [m/km]",
+#'    main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
+#' @export
+CalculateIRIperSegmentsOverlapping <- function(profile, iri_coef, segment.length = 100, segment.offset = 20) {
+  # check that segment.offset is samller than segment.length
+  stopifnot(segment.length >= segment.offset)
+
   # initialize costants
   DX <- iri_coef$dx  # sample interval (m)
   K <- max(2, as.integer(.5 + .25 / DX) + 1)  # number of profile points used to compute mvg avg slope input (window)
   BL <- (K - 1) * DX  # baselength
 
-  # split profile into segments by defining starting and ending indices (e.g. per 100m segment)
+  # split profile into segments by defining starting and ending indices (e.g. per 100m segment considering offsets)
   num_samples_per_segment <- segment.length / DX
+  num_samples_per_offset <- segment.offset / DX
   buffer_look_ahead <- K - 2
-  starts <- seq(1,length(profile)-buffer_look_ahead,by=num_samples_per_segment)
+  starts <- seq(1,length(profile)-buffer_look_ahead,by=num_samples_per_offset)
   # if there is exactly one sample missing for calculating initial IRI for next segment, delete last segment
-  if ((length(profile)-buffer_look_ahead-1) %% num_samples_per_segment == 0) {
+  if ((length(profile)-buffer_look_ahead-1) %% num_samples_per_offset == 0) {
     starts <- starts[-length(starts)]
   }
   ends <- sapply(starts, function(x){ min(length(profile), x+num_samples_per_segment-1+buffer_look_ahead) })
