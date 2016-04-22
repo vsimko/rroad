@@ -1,18 +1,33 @@
+# see also https://docs.travis-ci.com/user/languages/r
 language: r
-warnings_are_errors: false
-sudo: required
 
-cache: apt
+# Using the package cache to store R package dependencies can significantly
+# speed up build times and is recommended for most builds.
+cache:
+  - apt
+  - packages
+
+# You will need to set sudo: false in order to use the container based builds
+# and package caching.
+sudo: false
+
+warnings_are_errors: false
 
 notifications:
   email:
     on_success: change
     on_failure: change
 
-r_github_packages:
-  - jimhester/covr
-  - jimhester/lintr
+addons:
+  apt:
+    packages:
+    - libsndfile1-dev
+    - libfftw3-dev
+
+r_binary_packages:
+  - covr
+  - lintr
 
 after_success:
   - Rscript -e 'library(covr);codecov()'
-  - Rscript -e 'lintr::lint_package()'
+  - Rscript -e 'devtools::install();lintr::lint_package()'
