@@ -6,7 +6,7 @@ Set of tools for monitoring road condition
 
 -   International Roughness Index (IRI) computation
 
-[![Build Status](https://travis-ci.org/vsimko/rroad.svg)](https://travis-ci.org/vsimko/rroad) [![codecov.io](https://codecov.io/github/vsimko/rroad/coverage.svg?branch=master)](https://codecov.io/github/vsimko/rroad?branch=master) [![Issue Stats](http://issuestats.com/github/vsimko/rroad/badge/pr)](http://issuestats.com/github/vsimko/rroad) [![Issue Stats](http://issuestats.com/github/vsimko/rroad/badge/issue)](http://issuestats.com/github/vsimko/rroad)
+[![Build Status](https://travis-ci.org/vsimko/rroad.svg)](https://travis-ci.org/vsimko/rroad) [![codecov.io](https://codecov.io/github/vsimko/rroad/coverage.svg?branch=master)](https://codecov.io/github/vsimko/rroad?branch=master)
 
 Download and Install
 --------------------

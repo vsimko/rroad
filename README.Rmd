@@ -21,8 +21,6 @@ Set of tools for monitoring road condition
 
 [![Build Status](https://travis-ci.org/vsimko/rroad.svg)](https://travis-ci.org/vsimko/rroad)
 [![codecov.io](https://codecov.io/github/vsimko/rroad/coverage.svg?branch=master)](https://codecov.io/github/vsimko/rroad?branch=master)
-[![Issue Stats](http://issuestats.com/github/vsimko/rroad/badge/pr)](http://issuestats.com/github/vsimko/rroad)
-[![Issue Stats](http://issuestats.com/github/vsimko/rroad/badge/issue)](http://issuestats.com/github/vsimko/rroad)
 
 ## Download and Install
 
