@@ -10,7 +10,7 @@ License: MIT + file LICENSE
 URL: http://github.com/vsimko/rroad
 BugReports: http://github.com/vsimko/rroad/issues
 LazyData: yes
-Depends: zoo, biwavelet, dplyr, seewave
+Import: zoo, biwavelet, dplyr, seewave
 Suggests:
     testthat,
     knitr,
