@@ -4,7 +4,7 @@
   message <- paste("rroad", utils::packageVersion("rroad"), "loaded.")
   packageStartupMessage(message, appendLF = TRUE)
 
-  # lazily evaluated promise (precomputed coeficients 100mm segments)
+  # lazily evaluated promise
   delayedAssign("IRI_COEF_100", list(
     dx = 0.1,
     st = matrix(nrow = 4, ncol = 4, byrow = TRUE,
@@ -15,7 +15,7 @@
     pr = c(3.793992E-04, .2490886, 4.123478E-02, 17.65532)
   ), assign.env = as.environment("package:rroad"))
 
-  # lazily evaluated promise (precomputed coeficients 250mm segments)
+  # lazily evaluated promise
   delayedAssign("IRI_COEF_250", list(
     dx = 0.25,
     st = matrix(nrow = 4, ncol = 4, byrow = TRUE,
@@ -28,3 +28,10 @@
 
 }
 
+#' precomputed coeficients 100 mm segments (lazily evaluated promise)
+#' @name IRI_COEF_100
+NULL
+
+#' precomputed coeficients 250 mm segments (lazily evaluated promise)
+#' @name IRI_COEF_250
+NULL
