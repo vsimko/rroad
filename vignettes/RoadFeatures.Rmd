@@ -10,13 +10,14 @@ output:
 ```{r Setup, include=FALSE}
 library(dplyr)
 library(zoo)
+set.seed(0)
 ```
 
-First, some some assumptions about the road and and our car:
+First, some assumptions about the road and our car:
 ```{r}
 road_len_m <- 1000          # road length
 speed_kmh <- 80             # car speed in km/h
-sample_rate_hz <- 200       # sampling rate of a 3D accelerometer
+sample_rate_hz <- 200       # sampling rate of the 3D accelerometer
 speed_ms <- speed_kmh / 3.6 # car speed in m/s
 sample_len <- round(speed_ms / sample_rate_hz, digits = 2) # sample size
 num_samples <- round(road_len_m / sample_len) # how many samples we collected
@@ -31,14 +32,20 @@ NA valued from the signal, because there might be gaps (NA values) and the
 interpolation doesn't work with NAs.
 
 ```{r cache=TRUE}
+
+# random signal with simulated gravity
+random_accz <- (rnorm(num_samples) - GRAVITY_ACCEL)
+
+# random gaps in the signal to later demonstrate gaps interpolation
+random_gaps <- sapply(rnorm(num_samples),
+                      function(x){ifelse(abs(x) > .7, 1, NA)})
+
 signal <- data.frame(
   sampleid = seq_len(num_samples),
-  dist_meters = seq(from = 0, to = road_len_m, by = sample_len)
-#  accZ = rnorm(num_samples) * # random signal
-#      sapply(rnorm(num_samples), function(x){ifelse(x > 1.8, 1, NA)}) # random gaps
+  dist_meters = seq(from = 0, to = road_len_m, by = sample_len),
+  accZ = random_accz * random_gaps
 )
-load("../data/2016_01_16_drive_k3535_acc_z.rda")
-drive_k3535_acc_z$acc_z %>% head(num_samples) -> signal$accZ_orig
+signal$accZ %>% head(num_samples) -> signal$accZ_orig
 
 plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
      main = "Accelerometer signal (original)",
