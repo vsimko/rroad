@@ -4,7 +4,11 @@ rroad R package
 
 Set of tools for monitoring road condition.
 
-Currently, the following features are supported: - International Roughness Index (IRI) computation - continuously increasing segment - fixed length overlapping segments with an offset
+Currently, the following features are supported:
+
+-   International Roughness Index (IRI) computation
+    -   continuously increasing segment
+    -   fixed length overlapping segments with an offset
 
 [![Build Status](https://travis-ci.org/vsimko/rroad.svg)](https://travis-ci.org/vsimko/rroad) [![codecov.io](https://codecov.io/github/vsimko/rroad/coverage.svg?branch=master)](https://codecov.io/github/vsimko/rroad?branch=master)
 
