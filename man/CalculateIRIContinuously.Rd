@@ -36,4 +36,3 @@ plot(x = test_profile$x, y = test_profile$profile, ylim = c(0, 8),
      xlim = c(0,25), type = "l")
 lines(x = test_profile$x, y = test_profile$iri*10)
 }
-

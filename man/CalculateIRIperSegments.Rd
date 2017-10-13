@@ -30,4 +30,3 @@ plot(iri, type="s",
    xlab="Segment", ylab="IRI [m/km]",
    main="International Roughness Index (IRI)\\nsample = 10cm, segment = 20m")
 }
-

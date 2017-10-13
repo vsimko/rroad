@@ -6,4 +6,3 @@
 \description{
 precomputed coeficients 250 mm segments (lazily evaluated promise)
 }
-
