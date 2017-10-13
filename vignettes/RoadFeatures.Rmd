@@ -1,16 +1,22 @@
----
-title: "Road profile features"
-author: "Viliam Simko"
-date: "February 20, 2016"
-output:
-  html_document:
-    fig_caption: yes
----
-<!-- This file is generated from RoadFeatures.Rmd. Please edit that file -->
+<!--
+%\VignetteEngine{knitr::docco_linear}
+%\VignetteIndexEntry{Road profile features}
+-->
+
+An Introduction to **rroad** Package
+=======================================
+
 ```{r Setup, include=FALSE}
+set.seed(0) # we need reproducible results
+knitr::opts_chunk$set(
+  out.extra = 'style="display:block; margin: auto"',
+  fig.align = "center",
+#  fig.path = "webimg/",
+  dev = "png")
+
 library(dplyr)
 library(zoo)
-set.seed(0)
+library(biwavelet)
 ```
 
 First, some assumptions about the road and our car:
@@ -92,7 +98,6 @@ We can also analyze frequency content of the signal by using **Continuous
 Wavelet Transform (CWT)**. The following plot is called "scaleogram".
 
 ```{r cache=TRUE}
-library(biwavelet)
 w <- wt(cbind(signal$sampleid, signal$accZ_approx), dj = 1/2)
 plot(w)
 ```
@@ -116,8 +121,8 @@ Here, we compute moving average and root mean squared value:
 signal$accZ_approx %>% rollmean(k = 10, fill = NA) -> signal$rollmean10
 signal$accZ_approx %>% rollmean(k = 20, fill = NA) -> signal$rollmean20
 
-library(seewave)
-signal$accZ_approx %>% rollapply(width = 20, fill = NA, FUN = rms) -> signal$rms20
+rms <- function(x) sqrt(mean(x^2)) # same as `rms` from `seewave` package
+signal$accZ_approx %>% rollapply(width = 20, fill = NA, FUN = rms ) -> signal$rms20
 ```
 
 ```{r}
