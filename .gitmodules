@@ -1,0 +1,4 @@
+[submodule "vignettes/gh-pages"]
+	path = vignettes/gh-pages
+	url = https://github.com/vsimko/rroad.git
+	branch = gh-pages
