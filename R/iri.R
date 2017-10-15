@@ -1,6 +1,8 @@
-# This file provides a function for calculation the international roughness index (IRI) given a road profile.
+# This file provides a function for calculation the international roughness
+# index (IRI) given a road profile.
 
-#' Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile
+#' Computes the IRI for fixed length segments (e.g. 100m segments) given a road
+#' profile.
 #'
 #' @param profile Road profile (as numeric vector in mm) whose IRI is to be calculated.
 #' @param iri_coef Set of coefficients for specific sample size (e. g. IRI_COEF_100).
