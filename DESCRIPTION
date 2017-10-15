@@ -1,6 +1,6 @@
 Package: rroad
 Type: Package
-Title: Tools for road condition analysis
+Title: Road Condition Analysis
 Version: 0.0.4
 Date: 2017-10-12
 Authors@R: as.person(c(
