@@ -1,6 +1,6 @@
 <!--
 %\VignetteEngine{knitr::docco_linear}
-%\VignetteIndexEntry{Road profile features}
+%\VignetteIndexEntry{Road Condition Analysis}
 -->
 
 An Introduction to **rroad** Package
