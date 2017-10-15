@@ -9,6 +9,13 @@ contribution at a time by users just like you.
 - Use RStudio
 - Unit-testing: press `CTRL+SHIFT+T` in RStudio
 
+Use git rebase (not git merge) to sync your work from time to time.
+
+```
+$ git fetch upstream
+$ git rebase upstream/master
+```
+
 ## Reporting bugs and other issues
 If you encounter a clear bug, please file a minimal reproducible example on github [issue tracker].
 If you have a suggestion for improvement or a new feature, create
