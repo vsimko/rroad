@@ -3,10 +3,9 @@ Type: Package
 Title: Road Condition Analysis
 Version: 0.0.4
 Date: 2017-10-12
-Authors@R: as.person(c(
-    "Viliam Simko <viliam.simko@gmail.com> [aut, cre]",
-    "Kevin Laubis <laubis@fzi.de> [aut]"
-  ))
+Authors@R: c(
+  person("Viliam", "Simko", email = "viliam.simko@gmail.com", role = c("cre", "aut")),
+  person("Kevin", "Laubis", email = "laubis@fzi.de", role = "aut"))
 Description: Set of tools for road condition analysis.
   Computation of the International Roughness Index (IRI).
 License: MIT + file LICENSE
