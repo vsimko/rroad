@@ -6,3 +6,6 @@
 ^README_cache$
 ^CODE_OF_CONDUCT.md$
 ^CONTRIBUTING.md$
+^vignettes/gh-pages$
+^vignettes/publish.sh$
+^vignettes/README-
