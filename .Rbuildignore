@@ -4,3 +4,5 @@
 ^\.lintr$
 ^README.Rmd$
 ^README_cache$
+^CODE_OF_CONDUCT.md$
+^CONTRIBUTING.md$
