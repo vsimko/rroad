@@ -22,6 +22,12 @@ install.packages("devtools")
 devtools::install_github("vsimko/rroad")
 ```
 
+To download the release version of the package on CRAN, type the following at the R command line:
+
+``` r
+install.packages("corrplot")
+```
+
 Examples
 --------
 
