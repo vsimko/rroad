@@ -29,12 +29,12 @@ Examples
 profile <- rnorm(10000)
 iri <- CalculateIRIperSegments(profile, IRI_COEF_100, 20)
 par(mfrow = c(1,2)) # space for two diagrams
-plot(profile, type="l",
-  xlab="Distance [dm]", ylab="Profile [mm]",
-  main="Read profile (Laser measurement)")
-plot(iri, type="s",
-  xlab="Segment", ylab="IRI [m/km]",
-  main="International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
+plot(profile, type = "l",
+  xlab = "Distance [dm]", ylab = "Profile [mm]",
+  main = "Read profile (Laser measurement)")
+plot(iri, type = "s",
+  xlab = "Segment", ylab = "IRI [m/km]",
+  main = "International Roughness Index (IRI)\nsample = 10cm, segment = 20m")
 ```
 
 ![](vignettes/README-iri_from_random_profile-1.png)
@@ -42,4 +42,4 @@ plot(iri, type="s",
 References
 ----------
 
-<a id="Sayers1986"/> Sayers, M.W., Gillespie, T.D. & Queiroz, C. a V., 1986. **The International Road Roughness Experiment - Establishing Correlation and a Calibration Standard for Measurements**. Washington, D.C.: Transportation Department.
+<a id="Sayers1986"/> Sayers, Michael W; Gillespie, Thomas D; Queiroz, Cesar A.V. 1986 **The International Road Roughness Experiment (IRRE) : establishing correlation and a calibration standard for measurements**. World Bank technical paper ; no. WTP 45. Washington, DC : The World Bank. [Link](http://documents.worldbank.org/curated/en/326081468740204115/The-International-Road-Roughness-Experiment-IRRE-establishing-correlation-and-a-calibration-standard-for-measurements)
