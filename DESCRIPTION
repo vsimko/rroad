@@ -7,7 +7,12 @@ Authors@R: c(
   person("Viliam", "Simko", email = "viliam.simko@gmail.com", role = c("cre", "aut")),
   person("Kevin", "Laubis", email = "laubis@fzi.de", role = "aut"))
 Description: Set of tools for road condition analysis.
-  Computation of the International Roughness Index (IRI).
+  Computation of the International Roughness Index (IRI) given a longitudinal
+  road profile. The IRI can be calculated for a single road segment or for a
+  sequence of segments with a fixed length (e. g. 100m). For the latter, an
+  overlap of the segments can be selected. The IRI and likewise the algorithms
+  for its determination are defined in Sayers et al. (1986)
+  <url:https://deepblue.lib.umich.edu/bitstream/handle/2027.42/3134/72773.pdf>.
 License: MIT + file LICENSE
 URL: http://github.com/vsimko/rroad
 BugReports: http://github.com/vsimko/rroad/issues
