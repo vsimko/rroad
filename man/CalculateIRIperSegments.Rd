@@ -2,7 +2,8 @@
 % Please edit documentation in R/iri.R
 \name{CalculateIRIperSegments}
 \alias{CalculateIRIperSegments}
-\title{Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile}
+\title{Computes the IRI for fixed length segments (e.g. 100m segments) given a road
+profile.}
 \usage{
 CalculateIRIperSegments(profile, iri_coef, segment.length = 100)
 }
@@ -17,7 +18,8 @@ CalculateIRIperSegments(profile, iri_coef, segment.length = 100)
 Calculated IRI (m/km) per segment (as numeric) of the given profile.
 }
 \description{
-Computes the IRI for fixed length segments (e.g. 100 m segments) given a road profile
+Computes the IRI for fixed length segments (e.g. 100m segments) given a road
+profile.
 }
 \examples{
 profile <- rnorm(10000)
