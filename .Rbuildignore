@@ -2,8 +2,7 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^\.lintr$
-^README.Rmd$
-^README_cache$
+^README
 ^CODE_OF_CONDUCT.md$
 ^CONTRIBUTING.md$
 ^vignettes/gh-pages$
