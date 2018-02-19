@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 
 library(dplyr)
 library(zoo)
-library(biwavelet)
 ```
 
 First, some assumptions about the road and our car:
@@ -98,34 +97,51 @@ We can also analyze frequency content of the signal by using **Continuous
 Wavelet Transform (CWT)**. The following plot is called "scaleogram".
 
 ```{r cache=TRUE}
-w <- wt(cbind(signal$sampleid, signal$accZ_approx), dj = 1/2)
-plot(w)
+if(require("biwavelet")) {
+  w <- wt(cbind(signal$sampleid, signal$accZ_approx), dj = 1/2)
+  plot(w)
+} else {
+  ## do nothing
+  cat("biwavelet package required")
+}
 ```
 
 We can extract the CWT coeficients representing certaing frequency bands.
 The `power.corr` matrix represents bias-correction version.
 ```{r}
-nscales <- nrow(w$power.corr)
-signal$cwt_mid  <- w$power.corr[floor(.5 * nscales),]
-signal$cwt_high <- w$power.corr[floor(.2 * nscales),]
-signal$cwt_low  <- w$power.corr[floor(.8 * nscales),]
+if(require("biwavelet")) {
+  nscales <- nrow(w$power.corr)
+  signal$cwt_mid  <- w$power.corr[floor(.5 * nscales),]
+  signal$cwt_high <- w$power.corr[floor(.2 * nscales),]
+  signal$cwt_low  <- w$power.corr[floor(.8 * nscales),]
+  
+  plot(signal$cwt_high, type = "l")
+  lines(signal$cwt_mid, col = "blue", lw = 4)
+  lines(signal$cwt_low, col = "red", lw = 4)
+} else {
+  ## do nothing
+  cat("biwavelet package required")
+}
 
-plot(signal$cwt_high, type = "l")
-lines(signal$cwt_mid, col = "blue", lw = 4)
-lines(signal$cwt_low, col = "red", lw = 4)
 ```
 
 Here, we compute moving average and root mean squared value:
 
 ```{r}
-signal$accZ_approx %>% rollmean(k = 10, fill = NA) -> signal$rollmean10
-signal$accZ_approx %>% rollmean(k = 20, fill = NA) -> signal$rollmean20
-
-rms <- function(x) sqrt(mean(x^2)) # same as `rms` from `seewave` package
-signal$accZ_approx %>% rollapply(width = 20, fill = NA, FUN = rms ) -> signal$rms20
+if(require("biwavelet")) {
+  signal$accZ_approx %>% rollmean(k = 10, fill = NA) -> signal$rollmean10
+  signal$accZ_approx %>% rollmean(k = 20, fill = NA) -> signal$rollmean20
+  
+  rms <- function(x) sqrt(mean(x^2)) # same as `rms` from `seewave` package
+  signal$accZ_approx %>% rollapply(width = 20, fill = NA, FUN = rms ) -> signal$rms20
+} else {
+  ## do nothing
+  cat("biwavelet package required")
+}
 ```
 
 ```{r}
+if(require("biwavelet")) {
 signal %>% head(3000) -> signal_head
 
 plot(signal_head$dist_meters,
@@ -136,4 +152,9 @@ plot(signal_head$dist_meters,
 lines(signal_head$dist_meters, signal_head$rollmean10, col = "red", lw = 3)
 lines(signal_head$dist_meters, signal_head$rollmean20, col = "blue", lw = 3)
 lines(signal_head$dist_meters, signal_head$rms20, col = "green", lw = 3)
+} else {
+  ## do nothing
+  cat("biwavelet package required")
+}
+
 ```
