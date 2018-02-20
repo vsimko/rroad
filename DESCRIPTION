@@ -22,7 +22,6 @@ LazyData: yes
 Suggests:
     testthat,
     knitr,
-    rmarkdown,
     zoo,
     biwavelet
 VignetteBuilder: knitr
