@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
 #  fig.path = "webimg/",
   dev = "png")
 
-library(dplyr)
 library(zoo)
 ```
 
@@ -50,7 +49,7 @@ signal <- data.frame(
   dist_meters = seq(from = 0, to = road_len_m, by = sample_len),
   accZ = random_accz * random_gaps
 )
-signal$accZ %>% head(num_samples) -> signal$accZ_orig
+head(signal$accZ, num_samples) -> signal$accZ_orig
 
 plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
      main = "Accelerometer signal (original)",
@@ -61,10 +60,10 @@ plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
 (signal$accZ_orig - GRAVITY_ACCEL) -> signal$accZ_nogravity
 
 # z-score normalization (subtracting mean and dividing by sd)
-signal$accZ_orig %>% scale -> signal$accZ
+scale(signal$accZ_orig) -> signal$accZ
 
 # removing leading and trailing NAs in the whole matrix
-signal %>% na.trim -> signal
+na.trim(signal) -> signal
 
 plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
      main = "Accelerometer signal (z-score normalized)",
@@ -74,7 +73,7 @@ plot(signal$dist_meters, signal$accZ, type = "o", pch = "+", cex = .5,
 
 Now, we look at the gaps closely:
 ```{r}
-signal %>% head(500) -> signal_head
+head(signal, 500) -> signal_head
 plot(signal_head$dist_meters, signal_head$accZ,
      type = "o", xlab = NA, ylab = NA, pch = "+", cex = .5,
      main = paste("First", nrow(signal_head), "samples with gaps"))
@@ -82,9 +81,9 @@ plot(signal_head$dist_meters, signal_head$accZ,
 
 We need to interpolate the values between the gaps:
 ```{r}
-signal$accZ %>% na.approx(na.rm = FALSE) -> signal$accZ_approx
+na.approx(signal$accZ, na.rm = FALSE) -> signal$accZ_approx
 
-signal %>% head(500) -> signal_head
+head(signal, 500) -> signal_head
 plot(signal_head$dist_meters, signal_head$accZ,
      type = "p", pch = "+", cex = .5, xlab = NA, ylab = NA,
      main = paste("First", nrow(signal_head), "samples interpolated"))
@@ -129,11 +128,11 @@ Here, we compute moving average and root mean squared value:
 
 ```{r}
 if(require("biwavelet")) {
-  signal$accZ_approx %>% rollmean(k = 10, fill = NA) -> signal$rollmean10
-  signal$accZ_approx %>% rollmean(k = 20, fill = NA) -> signal$rollmean20
+  rollmean(signal$accZ_approx, k = 10, fill = NA) -> signal$rollmean10
+  rollmean(signal$accZ_approx, k = 20, fill = NA) -> signal$rollmean20
   
   rms <- function(x) sqrt(mean(x^2)) # same as `rms` from `seewave` package
-  signal$accZ_approx %>% rollapply(width = 20, fill = NA, FUN = rms ) -> signal$rms20
+  rollapply(signal$accZ_approx, width = 20, fill = NA, FUN = rms ) -> signal$rms20
 } else {
   ## do nothing
   cat("biwavelet package required")
@@ -142,16 +141,16 @@ if(require("biwavelet")) {
 
 ```{r}
 if(require("biwavelet")) {
-signal %>% head(3000) -> signal_head
+  head(signal, 3000) -> signal_head
 
-plot(signal_head$dist_meters,
+  plot(signal_head$dist_meters,
      signal_head$accZ_approx,
      type = "l", xlab = NA, ylab = NA,
      main = paste("First", nrow(signal_head), "samples interpolated"))
 
-lines(signal_head$dist_meters, signal_head$rollmean10, col = "red", lw = 3)
-lines(signal_head$dist_meters, signal_head$rollmean20, col = "blue", lw = 3)
-lines(signal_head$dist_meters, signal_head$rms20, col = "green", lw = 3)
+  lines(signal_head$dist_meters, signal_head$rollmean10, col = "red", lw = 3)
+  lines(signal_head$dist_meters, signal_head$rollmean20, col = "blue", lw = 3)
+  lines(signal_head$dist_meters, signal_head$rms20, col = "green", lw = 3)
 } else {
   ## do nothing
   cat("biwavelet package required")
