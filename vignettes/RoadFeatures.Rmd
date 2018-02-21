@@ -17,19 +17,16 @@ knitr::opts_chunk$set(
 
 ```{r, include=FALSE}
 if (requireNamespace("zoo", quietly = TRUE) &&
-    requireNamespace("biwavelet", quietly = TRUE) &&
-    requireNamespace("dplyr", quietly = TRUE)
+    requireNamespace("biwavelet", quietly = TRUE)
     ) {
   library("zoo")
   library("biwavelet")
-  library("dplyr")
 } else {
   knitr::knit_exit("
     Suggested packages not installed: biwavelet, zoo, dplyr
 
     Try installing from CRAN:
       install.packages('zoo')
-      install.packages('dplyr')
       install.packages('biwavelet')
 
     Alternatively try installing 'biwavelet' from github:
