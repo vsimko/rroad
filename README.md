@@ -10,7 +10,7 @@ Currently, the following features are supported:
     -   continuously increasing segment
     -   fixed length overlapping segments with an offset
 
-[![Build Status](https://travis-ci.org/vsimko/rroad.svg)](https://travis-ci.org/vsimko/rroad) [![codecov.io](https://codecov.io/github/vsimko/rroad/coverage.svg?branch=master)](https://codecov.io/github/vsimko/rroad?branch=master) [![CRAN Status](http://www.r-pkg.org/badges/version/rroad)](http://cran.r-project.org/package=rroad) [![Rdoc](http://www.rdocumentation.org/badges/version/rroad)](http://www.rdocumentation.org/packages/rroad) [![Dependency Status](https://dependencyci.com/github/vsimko/rroad/badge)](https://dependencyci.com/github/vsimko/rroad)
+[![Build Status](https://travis-ci.org/vsimko/rroad.svg)](https://travis-ci.org/vsimko/rroad) [![codecov.io](https://codecov.io/github/vsimko/rroad/coverage.svg?branch=master)](https://codecov.io/github/vsimko/rroad?branch=master) [![CRAN Status](http://www.r-pkg.org/badges/version/rroad)](http://cran.r-project.org/package=rroad) [![Rdoc](http://www.rdocumentation.org/badges/version/rroad)](http://www.rdocumentation.org/packages/rroad)
 
 Download and Install
 --------------------
